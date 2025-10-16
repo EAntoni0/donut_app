@@ -3,41 +3,49 @@ import 'package:flutter/material.dart';
 class MyTab extends StatelessWidget {
   final String iconPath;
   final String label;
-  const MyTab({super.key, required this.iconPath, required this.label});
+
+  const MyTab({
+    super.key,
+    required this.iconPath,
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
-return Tab(
-  height: 80,
-      child: Column(
-        mainAxisSize: MainAxisSize
-            .min, // Asegura que la columna no ocupe más espacio del necesario
+    return Tab(
+      height: 100,
+      child: Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
         children: [
-          Flexible(
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Image.asset(
-                iconPath,
-                color: Colors.grey[600],
-                width: 32,
-                height: 32,
-              ),
+          // Icono con fondo gris y borde negro
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              //color: Colors.grey[300], // Fondo gris
+              shape: BoxShape.circle,
+              
+            ),
+            child: Image.asset(
+              iconPath,
+              width: 40,
+              height: 40,
             ),
           ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.black,
+
+          // Texto debajo del icono
+          Positioned(
+            bottom: -16,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black,
+              ),
             ),
           ),
         ],
-     ),
-);
-}
+      ),
+    );
+  }
 }
