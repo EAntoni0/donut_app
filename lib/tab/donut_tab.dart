@@ -7,7 +7,7 @@ class DonutTab extends StatelessWidget {
   final List donutOnSale = [
     ["Chocolate", "100", Colors.brown, "Lib/images/chocolate_donut.png", "StarBucks"],
     ["Strawberry", "89", Colors.red, "Lib/images/strawberry_donut.png", "KrispyKreme"],
-    ["Grape", "95", Colors.amber, "Lib/images/grape_donut.png", "Dunkin'"],
+    ["Grape", "95", Colors.blue, "Lib/images/grape_donut.png", "Dunkin'"],
     ["Ice Cream", "30", Colors.brown, "Lib/images/icecream_donut.png", "Oxxo"],
   ];
 
@@ -18,7 +18,7 @@ class DonutTab extends StatelessWidget {
         crossAxisCount: 2,       // número de columnas
         childAspectRatio: 1 / 1.4,     // proporción de cada celda
       ),
-      itemCount: donutOnSale.length, // 👈 MUY IMPORTANTE
+      itemCount: donutOnSale.length, //
       itemBuilder: (context, index) {
         return DonutTile(
           donutFlavor: donutOnSale[index][0],

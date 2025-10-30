@@ -54,10 +54,7 @@ class DonutTile extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                ),
-      
-                
-                
+                ), 
             ],
           ),
           
@@ -103,9 +100,8 @@ class DonutTile extends StatelessWidget {
           
           ],
         
-          
-      
         ),
+
       ),
     );
   }
