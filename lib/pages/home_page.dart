@@ -1,5 +1,5 @@
-import 'package:donut_app/utils/my_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app/utils/my_tab.dart';
 
 import '../tab/donut_tab.dart';
 import '../tab/burger_tab.dart';
@@ -23,6 +23,17 @@ class _HomePageState extends State<HomePage> {
     const MyTab(iconPath: "lib/icons/pizza.png", label: "Pizza"),
   ];
 
+  int totalItems = 0;
+  double totalPrice = 0.0;
+
+  // 👇 Función para sumar productos al carrito
+  void addToCart(double price) {
+    setState(() {
+      totalItems++;
+      totalPrice += price;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -35,9 +46,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(left: 8.0),
             child: IconButton(
               icon: Icon(Icons.menu, color: Colors.grey[800], size: 36),
-              onPressed: () {
-                // Handle menu button press
-              },
+              onPressed: () {},
             ),
           ),
           actions: [
@@ -45,21 +54,18 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(right: 24.0),
               child: IconButton(
                 icon: Icon(Icons.person, color: Colors.grey[800], size: 36),
-                onPressed: () {
-                  // Handle profile button press
-                },
+                onPressed: () {},
               ),
             ),
           ],
         ),
-
         body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(24),
               child: Row(
                 children: const [
-                  Text("I want to", style: TextStyle(fontSize: 24)),
+                  Text("I want to ", style: TextStyle(fontSize: 24)),
                   Text(
                     "eat",
                     style: TextStyle(
@@ -78,66 +84,60 @@ class _HomePageState extends State<HomePage> {
               tabs: myTabs,
               indicator: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.black, // color del borde
-                  width: 3, // grosor
-                ),
+                border: Border.all(color: Colors.black, width: 3),
               ),
-              indicatorSize:
-                  TabBarIndicatorSize.label, // 👈 clave para ajustar al icono
+              indicatorSize: TabBarIndicatorSize.label,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
             ),
 
+            // 👇 Las pestañas, pasando la función addToCart
             Expanded(
               child: TabBarView(
                 children: [
-                  DonutTab(),
-                  const BurgerTab(),
-                  const SmoothieTab(),
-                  const PancakesTab(),
-                  const PizzaTab(),
+                  DonutTab(onAddToCart: addToCart),
+                  BurgerTab(onAddToCart: addToCart),
+                  SmoothieTab(onAddToCart: addToCart),
+                  PancakeTab(onAddToCart: addToCart),
+                  PizzaTab(onAddToCart: addToCart),
                 ],
               ),
             ),
 
-            //Carito
+            // 👇 Carrito inferior
             Container(
               color: Colors.white,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment
-                    .spaceBetween, // Espacio entre los elementos
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 28),
+                    padding: const EdgeInsets.only(left: 28),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // Alinea el texto a la izquierda
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '2 Items | \$45',
-                          style: TextStyle(
+                          '$totalItems Items | \$${totalPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          'Delivery Charge Included',
-                        ), //creamos el texto de la izquierda
+                        const Text('Delivery Charge Included'),
                       ],
                     ),
                   ),
-                  //boton
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pink, // Color de fondo rosa
-                      padding: EdgeInsets.symmetric(
+                      backgroundColor: Colors.pink,
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
-                      ), // Espaciado interno
+                      ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Aquí puedes abrir la vista del carrito
+                    },
                     child: const Text(
                       'View Cart',
                       style: TextStyle(
